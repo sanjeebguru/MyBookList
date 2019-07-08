@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity implements IMainView, BooksA
 
     @Override
     public void onRatingBarChange() {
-        booksAdapter.notifyDataSetChanged();
+        activityMainBinding.bookList.post(new Runnable() {
+            @Override
+            public void run() {
+                booksAdapter.notifyDataSetChanged();
+            }
+        });
     }
 }
