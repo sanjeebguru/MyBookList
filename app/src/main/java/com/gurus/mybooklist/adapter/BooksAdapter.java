@@ -73,6 +73,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
             book.setBookRating(random.nextFloat() * 5);
         }
         Collections.sort(books);
+        mClickListener.onRatingBarChange();
 
     }
 
