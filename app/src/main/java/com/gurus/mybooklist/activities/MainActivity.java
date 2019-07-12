@@ -18,8 +18,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import rx.Observable;
-import rx.Observer;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 
 public class MainActivity extends AppCompatActivity implements IMainView, BooksAdapter.OnRecordEventListener {
 
@@ -50,20 +52,27 @@ public class MainActivity extends AppCompatActivity implements IMainView, BooksA
 
         observable.subscribe(new Observer<List<Book>>() {
             @Override
-            public void onCompleted() {
-                Log.d("Mybooklist", "onCompleted()");
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(List<Book> books) {
+                booksAdapter.setBooks(books);
+
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.d("Mybooklist", "onError()",e);
+
             }
 
             @Override
-            public void onNext(List<Book> data) {
-               booksAdapter.setBooks(data);
+            public void onComplete() {
+
             }
         });
+
     }
 
 
@@ -83,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements IMainView, BooksA
         }
         Collections.sort(bookList);
         setBookListObservable(bookList);
-        //booksAdapter.sortRandomRating();
 
     }
 
